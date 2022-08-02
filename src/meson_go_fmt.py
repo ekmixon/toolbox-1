@@ -19,8 +19,8 @@ import subprocess
 import sys
 
 if len(sys.argv) != 2:
-    print('{}: wrong arguments'.format(sys.argv[0]), file=sys.stderr)
-    print('Usage: {} [SOURCE DIR]'.format(sys.argv[0]), file=sys.stderr)
+    print(f'{sys.argv[0]}: wrong arguments', file=sys.stderr)
+    print(f'Usage: {sys.argv[0]} [SOURCE DIR]', file=sys.stderr)
     sys.exit(1)
 
 source_dir = sys.argv[1]
@@ -28,7 +28,11 @@ source_dir = sys.argv[1]
 try:
     gofmt = subprocess.run(['gofmt', '-d', source_dir], capture_output=True, check=True)
 except subprocess.CalledProcessError as e:
-    print('{}: gofmt returned non-zero exit status {}'.format(sys.argv[0], e.returncode), file=sys.stderr)
+    print(
+        f'{sys.argv[0]}: gofmt returned non-zero exit status {e.returncode}',
+        file=sys.stderr,
+    )
+
     sys.exit(e.returncode)
 
 if gofmt.stdout:
